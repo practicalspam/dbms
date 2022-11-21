@@ -1,0 +1,21 @@
+db.createCollection('student')
+
+db.student.insert({name:'Ishant',class:'TE',address:'jalgoan',age:20,fees:12000})
+db.student.insert({name:'Anurag',class:'SE',address:'pathardi',age:21,fees:56000})
+db.student.insert({name:'Sumit',class:'TE',address:'pune',age:22,fees:60000})
+db.student.insert({name:'Prerna',class:'TE',address:'amalner',age:19,fees:98000})
+db.student.insert({name:'Kalyani',class:'SE',address:'nashik',age:23,fees:50000})
+
+db.student.find().pretty()
+
+db.student.aggregate([{$match:{class:'TE'}},{$count:'total number of student'}])
+
+db.student.aggregate({$count:'total number of student'})
+db.student.aggregate( [ {$match : {$ class: {$in : ["Te", "SE"] } } },{ $count : "Total students"} ] )
+db.student.aggregate( [ { $group : { _id : "$class", Max_Age : { $max : " $age "} } } ] )
+
+db.student.aggregate({$match:{age:{$gt:20}}}).pretty()
+db.student.aggregate({$sort:{age:1}}).pretty()
+
+db.student.createIndex({name:1})
+db.student.getIndexes()
